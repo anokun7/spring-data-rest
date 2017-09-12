@@ -1,0 +1,22 @@
+version: "3.2"
+
+services:
+  app:
+    image: spring-rest
+    depends_on: 
+      - postgres
+    ports:
+      - 8080
+    networks:
+      - blue
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: Password1234
+    networks:
+      - blue
+
+networks:
+  blue:
