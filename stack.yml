@@ -2,14 +2,14 @@ version: "3.2"
 
 services:
   app:
-    image: spring-rest
+    image: anoop/spring-rest-service
     depends_on: 
       - postgres
     ports:
       - 8080
 
   postgres:
-    image: postgres
+    image: postgres:latest
     environment:
       POSTGRES_USER: test
       POSTGRES_PASSWORD: Password1234
