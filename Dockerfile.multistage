@@ -1,0 +1,9 @@
+FROM java AS buildenv
+COPY initial /spring-rest/initial/
+WORKDIR /spring-rest/initial
+RUN ["./mvnw", "clean", "package"]
+
+FROM openjdk:jre-alpine
+COPY --from=buildenv /spring-rest/initial/target/spring-data-rest-0.1.0.jar /spring-data-rest.jar
+EXPOSE 8080
+CMD ["java", "-jar", "/spring-data-rest-0.1.0.jar"]
