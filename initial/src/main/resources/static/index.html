@@ -3,16 +3,18 @@
 		<title>Sign Up | Register Online</title>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<style>
-body { margin: 1em; max-width: 50%; height: 50%; font: normal 20px/100% Arial, Helvetica, sans-serif; }
+.conf { color: green; font: italic 10px, sans-serif; }
 .inputclass { margin-bottom: 1em; font: normal 20px/200% Arial, Helvetica, sans-serif; }
 .col { margin-right: 1em; }
 .supbutton { font: normal 20px/200% Arial, Helvetica, sans-serif; }
+body { margin: 1em; max-width: 50%; height: 50%; font: normal 20px/100% Arial, Helvetica, sans-serif; }
 fieldset { border: 1 0; margin: 5px; padding: 2em; }
 legend { font: bold small-caps normal 26px/150% Arial, Helvetica, sans-serif; }
 form { background-color: lightgray; }
 		</style>
 	</head>
 	<body>
+    <div class="conf"></div>
 		<form id="supform">
 			<fieldset>
 				<legend>Sign Up Form</legend>
@@ -40,18 +42,18 @@ form { background-color: lightgray; }
       person["firstName"] = $form.find("input[name='firstName']").val();
       person["lastName"] = $form.find("input[name='lastName']").val();
     
-    	alert("I am about to POST this:\n\n" + person);
-    
     	$.ajax({
     		type: "POST",
     		url: "/people",
     		data: JSON.stringify(person),
-    		success: function(){},
+    		success: function(){ 
+          $('#supform')[0].reset(); 
+          $(".conf").html("Success")},
     		dataType: "json",
         cache: false,
     		contentType : "application/json"
     	});
-    });   
+    });
 		</script>
 	</body>
 </html>
