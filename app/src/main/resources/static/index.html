@@ -4,10 +4,10 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <style>
 .conf { color: green; font: italic 10px, sans-serif; }
-.inputclass { margin-bottom: 1em; font: normal 20px/200% verdana; }
-.col { margin-right: 1em; }
+.inputclass { margin-bottom: 1em; font: normal 20px/200% verdana; padding-left: 0.5em;}
+.col { margin-right: 1em; display: inline-block; min-width: 5.5em; }
 .supbutton { font: normal 20px/200% verdana; margin-left: 30%; }
-.hdr { font: bold small-caps normal 26px/150% verdana; }
+.hdr { font: bold small-caps normal 26px/150% verdana; margin: 1 0 1em 1em; }
 body { margin: 1em; max-width: 50%; height: 50%; font: normal 20px/100% verdana; }
 form { background-color: #dff; border-left: 6px solid blue; border-radius: 16px; border-top: 3px solid blue; padding: 0 0 1em 1em; }
     </style>
@@ -24,6 +24,10 @@ form { background-color: #dff; border-left: 6px solid blue; border-radius: 16px;
         <input id="lastName" name="lastName" type="text" placeholder="Enter your last name" class="inputclass" required="">
       </div>
       <div class="form-group">
+        <label class="col" for="email">Email</label>  
+        <input id="email" name="email" type="text" placeholder="Enter your email id" class="inputclass" required="">
+      </div>
+      <div class="form-group">
         <label class="col" for="submit"></label>
         <div class="col-md-4">
           <button id="submit" form="supform" value="Submit" name="submit" class="supbutton">Sign Up!</button>
@@ -38,6 +42,7 @@ $('#supform').submit(function(event) {
   var $form = $( this );
   person["firstName"] = $form.find("input[name='firstName']").val();
   person["lastName"] = $form.find("input[name='lastName']").val();
+  person["email"] = $form.find("input[name='email']").val();
 
   $.ajax({
     type: "POST",
@@ -45,7 +50,7 @@ $('#supform').submit(function(event) {
     data: JSON.stringify(person),
     success: function(){ 
       $('#supform')[0].reset(); 
-      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"])},
+      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"]+" ("+person["email"]+").")},
     dataType: "json",
     cache: false,
     contentType : "application/json"
