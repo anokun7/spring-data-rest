@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   app:
-    image: anoop/spring-rest-service:slim
+    image: dtr.noop.ga/enterprise-applications/spring-rest-service:slim
     depends_on: 
       - postgres
     ports:

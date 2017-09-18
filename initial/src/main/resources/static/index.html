@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>Sign Up | Register Online</title>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<style>
+body { margin: 1em; max-width: 50%; height: 50%; font: normal 20px/100% Arial, Helvetica, sans-serif; }
+.inputclass { margin-bottom: 1em; font: normal 20px/200% Arial, Helvetica, sans-serif; }
+.col { margin-right: 1em; }
+.supbutton { font: normal 20px/200% Arial, Helvetica, sans-serif; }
+fieldset { border: 1 0; margin: 5px; padding: 2em; }
+legend { font: bold small-caps normal 26px/150% Arial, Helvetica, sans-serif; }
+form { background-color: lightgray; }
+		</style>
+	</head>
+	<body>
+		<form id="supform">
+			<fieldset>
+				<legend>Sign Up Form</legend>
+				<div class="form-group">
+					<label class="col" for="">First Name</label>  
+					<input id="firstName" name="firstName" type="text" placeholder="Enter your first name" class="inputclass" required="">
+				</div>
+				<div class="form-group">
+					<label class="col" for="lastName">Last Name</label>  
+					<input id="lastName" name="lastName" type="text" placeholder="Enter your last name" class="inputclass" required="">
+				</div>
+				<div class="form-group">
+					<label class="col" for="submit"></label>
+					<div class="col-md-4">
+						<button id="submit" form="supform" value="Submit" name="submit" class="supbutton">Sign Up!</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<script type="text/javascript">
+    $('#supform').submit(function(event) {
+      event.preventDefault();
+      var person = {}
+      var $form = $( this );
+      person["firstName"] = $form.find("input[name='firstName']").val();
+      person["lastName"] = $form.find("input[name='lastName']").val();
+    
+    	alert("I am about to POST this:\n\n" + person);
+    
+    	$.ajax({
+    		type: "POST",
+    		url: "/people",
+    		data: JSON.stringify(person),
+    		success: function(){},
+    		dataType: "json",
+        cache: false,
+    		contentType : "application/json"
+    	});
+    });   
+		</script>
+	</body>
+</html>
