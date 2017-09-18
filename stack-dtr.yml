@@ -12,4 +12,12 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_USER: test
-      POSTGRES_PASSWORD: Password1234
+      POSTGRES_DB_PASSWORD_FILE: /run/secrets/pg_password
+    volumes:
+      - /data:/var/lib/postgresql
+    secrets:
+      - pg_password
+
+secrets:
+  pg_password:
+    external: true
