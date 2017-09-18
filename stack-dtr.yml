@@ -3,13 +3,20 @@ version: "3.2"
 services:
   app:
     image: dtr.noop.ga/enterprise-applications/spring-rest-service:slim
+    deploy:
+      replicas: 1
+      labels:
+        com.docker.ucp.mesh.http: "external_route=http://app.noop.ga,internal_port=8080"
     depends_on: 
       - postgres
-    ports:
-      - 8080
+#   ports:
+#     - 8080
+    networks:
+      - app-net
+      - ucp-hrm
 
   postgres:
-    image: postgres:latest
+    image: dtr.noop.ga/information-systems/postgres:latest
     environment:
       POSTGRES_USER: test
       POSTGRES_DB_PASSWORD_FILE: /run/secrets/pg_password
@@ -17,6 +24,14 @@ services:
       - /data:/var/lib/postgresql
     secrets:
       - pg_password
+    networks:
+      - app-net
+
+networks:
+  ucp-hrm:
+    external: true
+  app-net:
+    driver: overlay
 
 secrets:
   pg_password:
