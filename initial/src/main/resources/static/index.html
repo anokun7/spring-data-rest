@@ -13,7 +13,6 @@ form { background-color: #dff; border-left: 6px solid blue; border-radius: 16px;
     </style>
   </head>
   <body>
-    <div class="conf"></div>
     <form id="supform">
       <div class="hdr">Sign Up Form</div>
       <div class="form-group">
@@ -31,6 +30,7 @@ form { background-color: #dff; border-left: 6px solid blue; border-radius: 16px;
         </div>
       </div>
     </form>
+    <div class="conf"></div>
     <script type="text/javascript">
 $('#supform').submit(function(event) {
   event.preventDefault();
@@ -45,7 +45,7 @@ $('#supform').submit(function(event) {
     data: JSON.stringify(person),
     success: function(){ 
       $('#supform')[0].reset(); 
-      $(".conf").html("Success")},
+      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"])},
     dataType: "json",
     cache: false,
     contentType : "application/json"
