@@ -9,7 +9,8 @@ import javax.persistence.Id;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="hibernate_sequence")
+    @SequenceGenerator(name="hibernate_sequence", sequenceName="hibernate_sequence", allocationSize=1)
     private long id;
 
     private String firstName;
