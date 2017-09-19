@@ -35,6 +35,7 @@ form { background-color: #DDB; border-left: 6px solid #FD7; border-radius: 16px;
       </div>
     </form>
     <div class="conf"></div>
+    <div class="data"></div>
     <script type="text/javascript">
 $('#supform').submit(function(event) {
   event.preventDefault();
@@ -48,9 +49,11 @@ $('#supform').submit(function(event) {
     type: "POST",
     url: "/people",
     data: JSON.stringify(person),
-    success: function(){ 
+    success: function() {
       $('#supform')[0].reset(); 
-      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"]+" ("+person["email"]+").")},
+      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"]+" ("+person["email"]+").");
+      $(".data").html("Test");
+    },
     dataType: "json",
     cache: false,
     contentType : "application/json"
