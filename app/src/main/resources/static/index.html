@@ -1,8 +1,8 @@
 <html>
-  <head>
-    <title>Sign Up | Register Online</title>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <style>
+	<head>
+		<title>Sign Up | Register Online</title>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<style>
 .conf { color: green; font: italic normal 12px/100% sans-serif; }
 .inputclass { margin-bottom: 1em; font: normal 20px/200% verdana; padding-left: 0.5em; border-radius: 10px; }
 .col { margin-right: 1em; display: inline-block; min-width: 5.5em; }
@@ -10,55 +10,67 @@
 .hdr { font: bold small-caps normal 26px/150% verdana; margin: 1 0 1em 1em; }
 body { margin: 1em; max-width: 50%; height: 50%; font: normal 20px/100% verdana; }
 form { background-color: #DDB; border-left: 6px solid #FD7; border-radius: 16px; border-top: 3px solid #FD7; padding: 0 0 1em 1em; }
-    </style>
-  </head>
-  <body>
-    <form id="supform">
-      <div class="hdr">Sign Up Form</div>
-      <div class="form-group">
-        <label class="col" for="">First Name</label>  
-        <input id="firstName" name="firstName" type="text" placeholder="Enter your first name" class="inputclass" required="">
-      </div>
-      <div class="form-group">
-        <label class="col" for="lastName">Last Name</label>  
-        <input id="lastName" name="lastName" type="text" placeholder="Enter your last name" class="inputclass" required="">
-      </div>
-      <div class="form-group">
-        <label class="col" for="email">Email</label>  
-        <input id="email" name="email" type="text" placeholder="Enter your email id" class="inputclass" required="">
-      </div>
-      <div class="form-group">
-        <label class="col" for="submit"></label>
-        <div class="col-md-4">
-          <button id="submit" form="supform" value="Submit" name="submit" class="supbutton">Sign Up!</button>
-        </div>
-      </div>
-    </form>
-    <div class="conf"></div>
-    <div class="data"></div>
-    <script type="text/javascript">
+		</style>
+	</head>
+	<body>
+		<form id="supform">
+			<div class="hdr">Sign Up Form</div>
+			<div class="form-group">
+				<label class="col" for="">First Name</label>  
+				<input id="firstName" name="firstName" type="text" placeholder="Enter your first name" class="inputclass" required="">
+			</div>
+			<div class="form-group">
+				<label class="col" for="lastName">Last Name</label>  
+				<input id="lastName" name="lastName" type="text" placeholder="Enter your last name" class="inputclass" required="">
+			</div>
+			<div class="form-group">
+				<label class="col" for="email">Email</label>  
+				<input id="email" name="email" type="text" placeholder="Enter your email id" class="inputclass" required="">
+			</div>
+			<div class="form-group">
+				<label class="col" for="submit"></label>
+				<div class="col-md-4">
+					<button id="submit" form="supform" value="Submit" name="submit" class="supbutton">Sign Up!</button>
+				</div>
+			</div>
+		</form>
+		<div class="conf"></div>
+		<div class="data"></div>
+		<script type="text/javascript">
 $('#supform').submit(function(event) {
-  event.preventDefault();
-  var person = {}
-  var $form = $( this );
-  person["firstName"] = $form.find("input[name='firstName']").val();
-  person["lastName"] = $form.find("input[name='lastName']").val();
-  person["email"] = $form.find("input[name='email']").val();
+	event.preventDefault();
+	var person = {}
+	var $form = $( this );
+	person["firstName"] = $form.find("input[name='firstName']").val();
+	person["lastName"] = $form.find("input[name='lastName']").val();
+	person["email"] = $form.find("input[name='email']").val();
 
-  $.ajax({
-    type: "POST",
-    url: "/people",
-    data: JSON.stringify(person),
-    success: function() {
-      $('#supform')[0].reset(); 
-      $(".conf").html("Success: "+person["firstName"]+" "+person["lastName"]+" ("+person["email"]+").");
-      $(".data").html("Test");
-    },
-    dataType: "json",
-    cache: false,
-    contentType : "application/json"
-  });
+	$.ajax({
+		type: "POST",
+		url: "/people",
+		data: JSON.stringify(person),
+		success: function() {
+			$('#supform')[0].reset(); 
+			$(".conf").html("Success: "+person["firstName"]+" "+person["lastName"]+" ("+person["email"]+").");
+			$(".data").html(
+					$.getJSON( "/people", function( data ) {
+						var items = [];
+						$.each( data, function( key, val ) {
+							items.push( "<li id='" + key + "'>" + val + "</li>" );
+						});
+
+						$( "<ul/>", {
+							"class": "my-new-list",
+							html: items.join( "" )
+						});
+					}); 
+					);
+		},
+		dataType: "json",
+		cache: false,
+		contentType : "application/json"
+	});
 });
-    </script>
-  </body>
+		</script>
+	</body>
 </html>
